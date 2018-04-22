@@ -1,0 +1,61 @@
+from random import randrange
+def vyhodnot(herni_pole):
+    if "xxx" in herni_pole:
+        return"vyhraly krizky:) x"
+    elif "ooo" in herni_pole:
+        return "vyhralo kolecko o"
+    elif "-" in herni_pole:
+        return "jeste hraj:)"
+    else:
+        return "game over"
+#herni_pole=("x-------------------")
+#x=vyhodnot(herni_pole) #ulozim si do promenne co mi vraci funkce
+#print(x) #vzprintim promennou
+
+def tah(herni_pole, cislo_policka, symbol):
+    #"vrati herni pole s danym symbolem na dane pozici"
+    return herni_pole[:cislo_policka] + symbol + herni_pole[cislo_policka + 1:]
+#print(tah(herni_pole, 1, "O"))
+
+def tah_hrace(herni_pole):
+    while True:
+        cislo_policka = int(input("Zadej cislo policka 0-19: "))
+        if cislo_policka < 0 or cislo_policka > 19:
+            print("Prosim zadej cislo v rozmezi 0-19.")
+        elif herni_pole[cislo_policka] != "-":
+            print("Policko {} je obsazene, vyber prosim jine.".format(cislo_policka))
+        else:
+            return tah(herni_pole, cislo_policka, "x")
+
+#print(tah_hrace(herni_pole))
+
+def tah_pocitace (herni_pole):
+    while  True:
+        cislo_policka=randrange(0,20)
+        if herni_pole[cislo_policka] == "-":
+            print("hraji na volne policko")
+            return tah(herni_pole, cislo_policka, "o")
+
+#print(tah_pocitace(herni_pole))
+
+def piskvorky_1D ():
+    pole=("--------------------")
+    while True:
+        pole=tah_pocitace(pole)
+        print(pole)
+        vyhodnoceni=vyhodnot(pole)
+        if vyhodnoceni!="jeste hraj":
+            print(vyhodnoceni)
+            break
+        pole=tah_hrace(pole)
+        print(pole)
+
+        vyhodnoceni=vyhodnot(pole)
+        if vyhodnoceni!="jeste hraj":
+            print(vyhodnoceni)
+            break
+
+
+
+
+piskvorky_1D()
